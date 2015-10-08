@@ -43,6 +43,8 @@ public class BranchNBound {
 		root = new Node(index,1);
 		index++;
 		w = weight;
+		visited = new ArrayList<Integer>();
+		mapNode = new HashMap<Integer, Node>();
 	}
 	
 	
@@ -90,8 +92,7 @@ public class BranchNBound {
 	
 	
 	private void depthFirstRec(Node node){
-		
-		
+				
 		//sondage du noeud
 		if(node.getZ() >  u || node.getW() > problem.getWeightMax()){
 			//on sonde
@@ -108,8 +109,7 @@ public class BranchNBound {
 				System.out.println("on a visté "+l);
 				visited.add(l);
 			}
-			
-			
+					
 			//maj
 			z = z - map.get(l).getValue();
 			w = w + node.getW();
@@ -119,10 +119,7 @@ public class BranchNBound {
 			
 		}else{
 			Node tmp = traitementDeNoeud(problem.getWeightMax(), node);
-			if(tmp == node){
-				System.out.println("Au bout de l'arbre");
-			}else
-				depthFirstRec(tmp);
+			depthFirstRec(tmp);
 		}
 			
 	}
