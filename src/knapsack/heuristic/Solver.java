@@ -9,8 +9,7 @@ public class Solver {
 
 	private ArrayList<Item> items;
 	private Double weightMax = 30.0;
-	
-	
+	private Double lb;
 	
 	
 	
@@ -61,11 +60,27 @@ public class Solver {
 			}
 		}
 		
+		setLb(sum);
 		System.out.println("Total: "+sum);
 		for(Item p : result){
 			System.out.println(p.getNumber() + "\t" + p.getWeight());			
 		}
 		
 		return result;
+	}
+
+	public Double getLb() {
+		return lb;
+	}
+
+	public void setLb(Double lb) {
+		this.lb = lb;
+	}
+	public Double getWeightMax() {
+		return this.getWeightMax();
+	}
+
+	public void setWeightMax(Double lb) {
+		this.weightMax = lb;
 	}
 }
