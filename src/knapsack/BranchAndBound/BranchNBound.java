@@ -18,8 +18,9 @@ public class BranchNBound {
 	private ArrayList<Integer> n1; //liste des indices déjà fixé à 1
 	private ArrayList<Integer> n0; //liste des indices déjà fixé à 0
 	private ArrayList<Integer> f; // liste des indices encore libres
-	private int n; //size
+	private ArrayList<Integer> visited;//liste des noeuds traité en 0 et 1;
 	
+	private int n; //size
 	private int index = 0;	
 	
 	private Double u; //Z+UB 
@@ -62,6 +63,8 @@ public class BranchNBound {
 		//on initialise root
 		
 		
+		//let's ride!!!!!
+		depthFirst();
 		
 		
 		
@@ -79,10 +82,11 @@ public class BranchNBound {
 	}
 	
 	
+	
 	private void depthFirstRec(Node node){
 		
 		
-		//cas d'arret totale
+		
 		
 		
 		//sondage du noeud
@@ -93,6 +97,13 @@ public class BranchNBound {
 			//l = max j parmis N1 et on remonte au noeud xl = 0
 			
 			int l = maxOfList(n1);
+			
+			if(visited.contains(l)){
+				return;
+			}else{
+				visited.add(l);
+			}
+			
 			
 			//maj
 			z = z - map.get(l).getValue();
