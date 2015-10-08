@@ -34,28 +34,28 @@ public class Main {
 	System.out.println("heuristic2\n");
 		
 		
-		Item a = new Item(1, 70.0, 31.0);
-		Item b = new Item(2, 20.0, 10.0);
-		Item c = new Item(3, 39.0, 20.0);
-		Item d = new Item(4, 35.0, 18.0);
-		Item e = new Item(4, 7.0,  4.0);
-		Item f = new Item(4, 5.0,  3.0);
-		Item g = new Item(4, 9.0,  6.0);
+	a = new Item(1, 70.0, 31.0);
+	b = new Item(2, 20.0, 10.0);
+	c = new Item(3, 39.0, 20.0);
+	d = new Item(4, 35.0, 18.0);
+	Item e = new Item(4, 7.0,  4.0);
+	Item f = new Item(4, 5.0,  3.0);
+	Item g = new Item(4, 9.0,  6.0);
 		
 		
-		ArrayList<Item> tmpList = new ArrayList<Item>();
-		tmpList.add(a);
-		tmpList.add(b);
-		tmpList.add(c);
-		tmpList.add(d);
-		tmpList.add(e);
-		tmpList.add(f);
-		tmpList.add(g);
+	tmpList = new ArrayList<Item>();
+	tmpList.add(a);
+	tmpList.add(b);
+	tmpList.add(c);
+	tmpList.add(d);
+	tmpList.add(e);
+	tmpList.add(f);
+	tmpList.add(g);
 		
 		
-		Solver sol = new Solver(tmpList, 50.0);
-		sol.solve();
-		
+	sol = new Solver(tmpList, 50.0);
+	sol.solve();
+	
 	}
 
 }
