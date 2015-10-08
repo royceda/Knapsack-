@@ -39,15 +39,15 @@ public class Main {
 	b = new Item(2, 20.0, 10.0);
 	c = new Item(3, 39.0, 20.0);
 	d = new Item(4, 35.0, 18.0);
-	Item e = new Item(4, 7.0,  4.0);
-	Item f = new Item(4, 5.0,  3.0);
-	Item g = new Item(4, 9.0,  6.0);
+	Item e = new Item(5, 7.0,  4.0);
+	Item f = new Item(6, 5.0,  3.0);
+	Item g = new Item(7, 9.0,  6.0);
 		
 		
 	tmpList = new ArrayList<Item>();
 	tmpList.add(a);
 	tmpList.add(b);
-	tmpList.add(c);
+	//tmpList.add(c);
 	tmpList.add(d);
 	tmpList.add(e);
 	tmpList.add(f);

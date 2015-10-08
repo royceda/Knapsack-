@@ -64,8 +64,8 @@ public class BranchNBound {
 		
 		//borne inferieur
 		problem.solve();
-		z = problem.getLb();
-		
+		//z = problem.getLb();
+		z = 0.0;
 		
 		//borne superieur
 		zBest = 102.0;
@@ -73,9 +73,7 @@ public class BranchNBound {
 		
 		//procedure du premier noeud
 		//on initialise root
-	
-		Double a = map.get(1).getWeight();
-		root.setW(w - a);
+		root.setW(w - map.get(1).getWeight());
 		
 		//let's ride!!!!!
 		depthFirst();
@@ -85,7 +83,7 @@ public class BranchNBound {
 	public void depthFirst(){
 		
 		Node tmp = traitementDeNoeud(problem.getWeightMax(), root);
-		System.out.println("Premier noeud: "+tmp.getNumber());
+		System.out.println("Noeud: "+tmp.getNumber()+" Objet: "+tmp.getItem()+" Z: "+tmp.getZ()+" W: "+tmp.getW());
 		depthFirstRec(tmp);
 	}
 	
@@ -119,6 +117,7 @@ public class BranchNBound {
 			
 		}else{
 			Node tmp = traitementDeNoeud(problem.getWeightMax(), node);
+			System.out.println("Noeud: "+tmp.getNumber()+" Objet: "+tmp.getItem()+" Z: "+tmp.getZ()+" W: "+tmp.getW());
 			depthFirstRec(tmp);
 		}
 			
@@ -156,18 +155,21 @@ public class BranchNBound {
 		}else if (root.getW() < we){
 			//on prend
 			//new node en 1; modifie le noeud root pr le vrai noeud
-			if(map.get(root.getItem()) != null){
+			if(map.get(root.getItem()+1) != null){
 				root.setN1(new Node(index, root.getItem()+1));
 				index++;
 				
 				f.remove(root.getNumber());
 				n1.add(root.getNumber());
 				
-				w = w - map.get(root.getItem()).getWeight();
+				w = w - map.get(root.getItem()).getWeight(); //pb a 4
 				z = z + map.get(root.getItem()).getValue();
 				if(z > zBest){
 					zBest = z;
 				}
+				
+				root.getN1().setW(w);
+				root.getN1().setZ(z);
 				
 				return root.getN1();
 			}
