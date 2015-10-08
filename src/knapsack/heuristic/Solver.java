@@ -8,7 +8,7 @@ import java.util.List;
 public class Solver {
 
 	private ArrayList<Item> items;
-	private Double weightMax = 30.0;
+	private Double weightMax;
 	private Double lb;
 	
 	
@@ -77,7 +77,7 @@ public class Solver {
 		this.lb = lb;
 	}
 	public Double getWeightMax() {
-		return this.getWeightMax();
+		return this.weightMax;
 	}
 
 	public void setWeightMax(Double lb) {

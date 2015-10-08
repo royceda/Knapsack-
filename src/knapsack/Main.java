@@ -3,6 +3,7 @@ package knapsack;
 
 import java.util.ArrayList;
 
+import knapsack.BranchAndBound.BranchNBound;
 import knapsack.heuristic.Item;
 import knapsack.heuristic.Solver;
 
@@ -27,7 +28,7 @@ public class Main {
 		tmpList.add(d);
 		
 		
-		Solver sol = new Solver(tmpList, 30.0);
+		Solver sol = new Solver(tmpList, 50.0);
 		sol.solve();
 		
 		
@@ -55,6 +56,10 @@ public class Main {
 		
 	sol = new Solver(tmpList, 50.0);
 	sol.solve();
+	
+	BranchNBound B = new BranchNBound(tmpList, 50.0);
+	B.procedure();
+	
 	
 	}
 

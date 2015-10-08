@@ -2,6 +2,7 @@ package knapsack.BranchAndBound;
 
 public class Node {
 	private Integer number;
+	private Integer item;
 	private Double z; //valeur de z a cet instant
 	private Double w; //capacité restante
 	
@@ -10,8 +11,11 @@ public class Node {
 	
 	
 	
-	public Node(int index){
+	public Node(int index, int it){
+		item = it;
 		number = index;
+		w = 0.0;
+		z = 0.0;
 	}
 	
 	
@@ -48,6 +52,22 @@ public class Node {
 	}
 	public void setN1(Node n1) {
 		this.n1 = n1;
+	}
+
+
+
+
+
+	public Integer getItem() {
+		return item;
+	}
+
+
+
+
+
+	public void setItem(Integer item) {
+		this.item = item;
 	}
 
 }

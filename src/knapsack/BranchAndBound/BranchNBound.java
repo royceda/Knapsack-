@@ -28,19 +28,28 @@ public class BranchNBound {
 	private Double zBest; //optimal Z
 	private Double w; //optimal w
 	
-	public BranchNBound(ArrayList<Item> list){
+	public BranchNBound(ArrayList<Item> list, Double weight){
+		problem = new Solver(list, weight);
+		map = new HashMap<Integer, Item>();
+		//remplir la map
+		for(Iterator<Item> ite = list.iterator(); ite.hasNext();){
+			Item tmp = ite.next();
+			map.put(tmp.getNumber(), tmp);
+		}
+		
 		n = list.size();
 		n0 = new ArrayList<Integer>();
 		n1 = new ArrayList<Integer>();
-		root = new Node(index);
+		root = new Node(index,1);
 		index++;
+		w = weight;
 	}
 	
 	
-	public void procedure(ArrayList<Item> list){
+	public void procedure(){
 		
 		//on initialise le probleme
-		n = list.size();
+		
 		n0 = new ArrayList<Integer>();
 		n1 = new ArrayList<Integer>();
 		f = new ArrayList<Integer>();
@@ -57,36 +66,30 @@ public class BranchNBound {
 		
 		
 		//borne superieur
-		//zBest=
+		zBest = 102.0;
+		u = 102.0;
 		
 		//procedure du premier noeud
 		//on initialise root
-		
+	
+		Double a = map.get(1).getWeight();
+		root.setW(w - a);
 		
 		//let's ride!!!!!
 		depthFirst();
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	
 	public void depthFirst(){
 		
 		Node tmp = traitementDeNoeud(problem.getWeightMax(), root);
+		System.out.println("Premier noeud: "+tmp.getNumber());
 		depthFirstRec(tmp);
 	}
 	
 	
 	
 	private void depthFirstRec(Node node){
-		
-		
-		
 		
 		
 		//sondage du noeud
@@ -99,8 +102,10 @@ public class BranchNBound {
 			int l = maxOfList(n1);
 			
 			if(visited.contains(l)){
+				System.out.println("la recurssion a fini. Le mode Hero !!!!!!! ^_^");
 				return;
 			}else{
+				System.out.println("on a visté "+l);
 				visited.add(l);
 			}
 			
@@ -114,7 +119,10 @@ public class BranchNBound {
 			
 		}else{
 			Node tmp = traitementDeNoeud(problem.getWeightMax(), node);
-			depthFirstRec(tmp);
+			if(tmp == node){
+				System.out.println("Au bout de l'arbre");
+			}else
+				depthFirstRec(tmp);
 		}
 			
 	}
@@ -139,7 +147,7 @@ public class BranchNBound {
 		if(root.getW() > we){
 			//on ne  prend pas
 			//new node en 0; modifie le noeud root pr le vrai noeud
-			root.setN0(new Node(index));
+			root.setN0(new Node(index, root.getItem()));
 			index++;
 			
 			f.remove(root.getNumber());
@@ -151,20 +159,22 @@ public class BranchNBound {
 		}else if (root.getW() < we){
 			//on prend
 			//new node en 1; modifie le noeud root pr le vrai noeud
-			root.setN1(new Node(index));
-			index++;
-			
-			f.remove(root.getNumber());
-			n1.add(root.getNumber());
-			
-			w = w - map.get(root.getNumber()).getWeight();
-			z = z + map.get(root.getNumber()).getValue();
-			if(z > zBest){
-				zBest = z;
+			if(map.get(root.getItem()) != null){
+				root.setN1(new Node(index, root.getItem()+1));
+				index++;
+				
+				f.remove(root.getNumber());
+				n1.add(root.getNumber());
+				
+				w = w - map.get(root.getItem()).getWeight();
+				z = z + map.get(root.getItem()).getValue();
+				if(z > zBest){
+					zBest = z;
+				}
+				
+				return root.getN1();
 			}
-			
-			return root.getN1();
-						
+			return root;
 		}
 		return null;
 	}
