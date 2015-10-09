@@ -18,9 +18,14 @@ import javax.swing.JProgressBar;
 
 public class Window extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -42,6 +47,7 @@ public class Window extends JFrame {
 	 * Create the frame.
 	 */
 	public Window() {
+		setTitle("KP Solver");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 605, 507);
 		contentPane = new JPanel();
@@ -50,7 +56,7 @@ public class Window extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -70,6 +76,13 @@ public class Window extends JFrame {
 		contentPane.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
+		JLabel lblSolution = new JLabel("Solution:");
+		GridBagConstraints gbc_lblSolution = new GridBagConstraints();
+		gbc_lblSolution.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSolution.gridx = 3;
+		gbc_lblSolution.gridy = 2;
+		contentPane.add(lblSolution, gbc_lblSolution);
+		
 		JLabel lblWeight = new JLabel("Weight");
 		GridBagConstraints gbc_lblWeight = new GridBagConstraints();
 		gbc_lblWeight.insets = new Insets(0, 0, 5, 5);
@@ -86,34 +99,43 @@ public class Window extends JFrame {
 		contentPane.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
 		
+		JLabel lblWeightMax = new JLabel("Weight Max");
+		GridBagConstraints gbc_lblWeightMax = new GridBagConstraints();
+		gbc_lblWeightMax.insets = new Insets(0, 0, 5, 5);
+		gbc_lblWeightMax.gridx = 0;
+		gbc_lblWeightMax.gridy = 4;
+		contentPane.add(lblWeightMax, gbc_lblWeightMax);
+		
+		textField_2 = new JTextField();
+		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 1;
+		gbc_textField_2.gridy = 4;
+		contentPane.add(textField_2, gbc_textField_2);
+		textField_2.setColumns(10);
+		
 		JComboBox comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 5;
+		gbc_comboBox.gridy = 6;
 		contentPane.add(comboBox, gbc_comboBox);
 		
 		JButton btnCompute = new JButton("Compute");
 		GridBagConstraints gbc_btnCompute = new GridBagConstraints();
 		gbc_btnCompute.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCompute.gridx = 0;
-		gbc_btnCompute.gridy = 7;
+		gbc_btnCompute.gridy = 8;
 		contentPane.add(btnCompute, gbc_btnCompute);
 		
 		JButton btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCancel.gridx = 1;
-		gbc_btnCancel.gridy = 7;
+		gbc_btnCancel.gridy = 8;
 		contentPane.add(btnCancel, gbc_btnCancel);
-		
-		JLabel lblSolution = new JLabel("Solution:");
-		GridBagConstraints gbc_lblSolution = new GridBagConstraints();
-		gbc_lblSolution.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSolution.gridx = 0;
-		gbc_lblSolution.gridy = 9;
-		contentPane.add(lblSolution, gbc_lblSolution);
 		
 		JProgressBar progressBar = new JProgressBar();
 		GridBagConstraints gbc_progressBar = new GridBagConstraints();

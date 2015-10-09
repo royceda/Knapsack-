@@ -4,6 +4,7 @@ package knapsack;
 import java.util.ArrayList;
 
 import knapsack.BranchAndBound.BranchNBound;
+import knapsack.frame.Window;
 import knapsack.heuristic.Item;
 import knapsack.heuristic.Solver;
 
@@ -47,7 +48,7 @@ public class Main {
 	tmpList = new ArrayList<Item>();
 	tmpList.add(a);
 	tmpList.add(b);
-	//tmpList.add(c);
+	tmpList.add(c);
 	tmpList.add(d);
 	tmpList.add(e);
 	tmpList.add(f);

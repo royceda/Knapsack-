@@ -69,7 +69,7 @@ public class BranchNBound {
 		
 		//borne superieur
 		zBest = 102.0;
-		u = 102.0;
+		u = 0 + 102.0;
 		
 		//procedure du premier noeud
 		//on initialise root
@@ -139,7 +139,8 @@ public class BranchNBound {
 	
 
 	public Node traitementDeNoeud(Double we, Node root){
-	
+			
+		//peut etre mettre la condition d'arret ici ???
 		if(root.getW() > we){
 			//on ne  prend pas
 			//new node en 0; modifie le noeud root pr le vrai noeud
@@ -155,7 +156,7 @@ public class BranchNBound {
 		}else if (root.getW() < we){
 			//on prend
 			//new node en 1; modifie le noeud root pr le vrai noeud
-			if(map.get(root.getItem()+1) != null){
+			if(map.get(root.getItem()) != null){
 				root.setN1(new Node(index, root.getItem()+1));
 				index++;
 				
@@ -168,6 +169,7 @@ public class BranchNBound {
 					zBest = z;
 				}
 				
+				
 				root.getN1().setW(w);
 				root.getN1().setZ(z);
 				
@@ -179,7 +181,13 @@ public class BranchNBound {
 	}
 	
 	
+	public Double upperBound(){
+		return 0.0;
+	}
 	
+	public Double lowerBound(){
+		return 0.0;
+	}
 	
 	
 	//Getters and Setters
