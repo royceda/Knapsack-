@@ -19,9 +19,6 @@ public class Node {
 	}
 	
 	
-	
-	
-	
 	//Getters and Setters
 	public Integer getNumber() {
 		return number;
