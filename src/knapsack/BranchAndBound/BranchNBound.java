@@ -15,10 +15,10 @@ public class BranchNBound {
 	private HashMap<Integer, Item> map; //map of item <number, item>
 	private HashMap<Integer, Node> mapNode; //map of node <number, Node>
 	
-	private ArrayList<Item> n1; //liste des indices d√©j√† fix√© √† 1
-	private ArrayList<Item> n0; //liste des indices d√©j√† fix√© √† 0
-	private ArrayList<Item> f; // liste des indices encore libres
-	private ArrayList<Integer> visited;//liste des noeuds trait√© en 0 et 1;
+	private ArrayList<String> n1; //liste des indices dÈj‡ fixÈ ‡ 1
+	private ArrayList<String> n0; //liste des indices dÈj‡ fixÈ ‡ 0
+	private ArrayList<String> f; // liste des indices encore libres
+	private ArrayList<Integer> visited;//liste des noeuds traitÈ en 0 et 1;
 	
 	private int n; //size
 	private int index = 0;	
@@ -43,10 +43,10 @@ public class BranchNBound {
 		}
 		
 		n = list.size();
-		n0 = new ArrayList<Item>();
-		n1 = new ArrayList<Item>();
+		n0 = new ArrayList<String>();
+		n1 = new ArrayList<String>();
 		root = new Node(index++,1);
-		f  = new ArrayList<Item>();
+		f  = new ArrayList<String>();
 		
 		w = weight;
 		visited = new ArrayList<Integer>();
@@ -63,8 +63,11 @@ public class BranchNBound {
 		n1.clear();
 		
 		
-		for(int i = 0; i<n; i++){
-			f.add(map.get(i));
+		for(int i = 1; i<=n; i++){
+			Item a = map.get(i);
+			String str = Integer.toString(map.get(i).getNumber());
+			System.out.println(str);
+			f.add( str); //eviter les pb lors de la suppression
 		}
 		
 		
@@ -112,14 +115,15 @@ public class BranchNBound {
 	}
 	
 	
-	private int maxOfList(ArrayList<Item> list){
+	private int maxOfList(ArrayList<String> list){
 		
 		int max = 0;
-		for(Iterator<Item> ite = list.iterator(); ite.hasNext();){
-			Item tmp = ite.next();
+		for(Iterator<String> ite = list.iterator(); ite.hasNext();){
+			String tmp = ite.next();
 			if(tmp != null){
-				if(max < tmp.getNumber()){
-					max = tmp.getNumber();
+				int a = Integer.parseInt(tmp);
+				if(max < a){
+					max = a;
 				}
 			}
 		}
@@ -131,7 +135,7 @@ public class BranchNBound {
 	public Node traitementDeNoeud(Double we, Node root){
 		
 		//peut etre mettre la condition d'arret ici ???
-		if(map.get(root.getItem()).getWeight() > w){
+		if(map.get(root.getItem()).getWeight() > w){ //pb f devrais etre vide un moment donnÈ
 			if(root.getZ() >  u || f.isEmpty()){			
 				return backtrack(root);
 				
@@ -149,8 +153,8 @@ public class BranchNBound {
 					index++;
 				}
 				
-				f.remove(map.get(root.getItem()));
-				n0.add(map.get(root.getNumber()));
+				f.remove(Integer.toString(map.get(root.getItem()).getNumber()));
+				n0.add(root.getNumber().toString());
 							
 				//a modif
 				root.getN0().setW(root.getW());
@@ -173,8 +177,8 @@ public class BranchNBound {
 				index++;
 			}
 			
-			f.remove(map.get(root.getItem()));
-			n1.add(map.get(root.getNumber()));
+			f.remove(Integer.toString(map.get(root.getItem()).getNumber()));
+			n1.add(root.getNumber().toString());
 			
 			w = w - map.get(root.getItem()).getWeight(); //pb a 4
 			z = z + map.get(root.getItem()).getValue();
@@ -208,7 +212,7 @@ public class BranchNBound {
 			System.out.println("la recurssion a fini. Le mode Hero !!!!!!! ^_^");
 			return null;
 		}else{
-			System.out.println("on a vist√© "+l);
+			System.out.println("on a vistÈ "+l);
 			visited.add(l);
 		}
 				
@@ -221,7 +225,7 @@ public class BranchNBound {
 		tmp.setN0(new Node(index, tmp.getItem()+1)); //penser au test et backtracker au pire
 		index++;
 		
-		f.remove(map.get(tmp.getItem()));
+		f.remove(Integer.toString(map.get(tmp.getItem()).getNumber()));
 		
 		tmp.getN0().setW(w);
 		tmp.getN0().setZ(z);
@@ -237,13 +241,13 @@ public class BranchNBound {
 		
 		for(int k = i; k<j; k++){
 			Item tmp = map.get(k);
-			if(n1.contains(tmp))
-				n1.remove(tmp);
-			else if(n0.contains(tmp))
-				n0.remove(tmp);
+			if(n1.contains(Integer.toString(tmp.getNumber())))
+				n1.remove(Integer.toString(tmp.getNumber()));
+			else if(n0.contains(Integer.toString(tmp.getNumber())))
+				n0.remove(Integer.toString(tmp.getNumber()));
 			
 			
-			f.add(map.get(k));
+			f.add(Integer.toString(map.get(k).getNumber()));
 			
 			Node node = mapNode.get(k);
 			
@@ -280,22 +284,22 @@ public class BranchNBound {
 	public void setMap(HashMap<Integer, Item> map) {
 		this.map = map;
 	}
-	public ArrayList<Item> getN1() {
+	public ArrayList<String> getN1() {
 		return n1;
 	}
-	public void setN1(ArrayList<Item> n1) {
+	public void setN1(ArrayList<String> n1) {
 		this.n1 = n1;
 	}
-	public ArrayList<Item> getN0() {
+	public ArrayList<String> getN0() {
 		return n0;
 	}
-	public void setN0(ArrayList<Item> n0) {
+	public void setN0(ArrayList<String> n0) {
 		this.n0 = n0;
 	}
-	public ArrayList<Item> getF() {
+	public ArrayList<String> getF() {
 		return f;
 	}
-	public void setF(ArrayList<Item> f) {
+	public void setF(ArrayList<String> f) {
 		this.f = f;
 	}
 	public Double getU() {
