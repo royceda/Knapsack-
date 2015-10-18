@@ -6,11 +6,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JComboBox;
+
 import java.awt.GridBagConstraints;
+
 import javax.swing.JButton;
+
 import java.awt.Insets;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -115,6 +121,13 @@ public class Window extends JFrame {
 		contentPane.add(textField_2, gbc_textField_2);
 		textField_2.setColumns(10);
 		
+		JLabel lblMethod = new JLabel("Method");
+		GridBagConstraints gbc_lblMethod = new GridBagConstraints();
+		gbc_lblMethod.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMethod.gridx = 0;
+		gbc_lblMethod.gridy = 6;
+		contentPane.add(lblMethod, gbc_lblMethod);
+		
 		JComboBox comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -122,6 +135,14 @@ public class Window extends JFrame {
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 6;
 		contentPane.add(comboBox, gbc_comboBox);
+		
+		
+		comboBox.addItem("greedy");
+		comboBox.addItem("DP");
+		comboBox.addItem("Branch and Bound");
+		
+		
+		
 		
 		JButton btnCompute = new JButton("Compute");
 		GridBagConstraints gbc_btnCompute = new GridBagConstraints();

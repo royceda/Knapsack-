@@ -14,14 +14,17 @@ public class BranchNBound {
 	
 	private HashMap<Integer, Item> map; //map of item <number, item>
 	private HashMap<Integer, Node> mapNode; //map of node <number, Node>
+	private HashMap<Integer, Node> mapItem; //pour un item son dernier node associé
+	
 	
 	private ArrayList<String> n1; //liste des indices déjà fixé à 1
 	private ArrayList<String> n0; //liste des indices déjà fixé à 0
 	private ArrayList<String> f; // liste des indices encore libres
+	private int cursor; //nb d'indice libre
 	private ArrayList<Integer> visited;//liste des noeuds traité en 0 et 1;
 	
 	private int n; //size
-	private int index = 0;	
+	private int index = 0;	//index de noeud
 	
 	private Double u; //Z+UB 
 	private Double z; //z
@@ -50,6 +53,7 @@ public class BranchNBound {
 		
 		w = weight;
 		visited = new ArrayList<Integer>();
+		mapItem = new HashMap<Integer, Node>();
 		mapNode = new HashMap<Integer, Node>();
 	}
 	
@@ -114,9 +118,12 @@ public class BranchNBound {
 		}
 	}
 	
-	
-	private int maxOfList(ArrayList<String> list){
-		
+	/**
+	 * return le numero du noeud du plus grand item (sens index)
+	 * @param list
+	 * @return
+	 */
+	private int maxOfList(ArrayList<String> list){	
 		int max = 0;
 		for(Iterator<String> ite = list.iterator(); ite.hasNext();){
 			String tmp = ite.next();
@@ -127,25 +134,27 @@ public class BranchNBound {
 				}
 			}
 		}
-		return max;
+		
+		Node tmp = mapItem.get(max);
+		return tmp.getNumber();
 	}
 	
 	
 
 	public Node traitementDeNoeud(Double we, Node root){
-		
+	
 		//peut etre mettre la condition d'arret ici ???
 		if(map.get(root.getItem()).getWeight() > w){ //pb f devrais etre vide un moment donné
+			
 			if(root.getZ() >  u || f.isEmpty()){			
-				return backtrack(root);
-				
+				//si c'est le dernier ou UB <= inc
+				return backtrack(root);				
 			}else{
 				
 				//on ne  prend pas
-				//new node en 0; modifie le noeud root pr le vrai noeud
-				
-				
+				//new node en 0; modifie le noeud root pr le vrai noeud			
 				if(map.get(root.getItem()+1) == null){
+					//dernier item
 					root.setN0(new Node(index, root.getItem()));
 					index++;
 				}else{
@@ -153,8 +162,10 @@ public class BranchNBound {
 					index++;
 				}
 				
-				f.remove(Integer.toString(map.get(root.getItem()).getNumber()));
-				n0.add(root.getNumber().toString());
+				String number = Integer.toString(map.get(root.getItem()).getNumber()); 
+				f.remove(number);
+				n0.add(root.getItem().toString());
+				
 							
 				//a modif
 				root.getN0().setW(root.getW());
@@ -170,7 +181,7 @@ public class BranchNBound {
 			
 			
 			if(map.get(root.getItem()+1) == null){
-				root.setN1(new Node(index, root.getItem()));
+				root.setN1(new Node(index, root.getItem()+1));
 				index++;
 			}else{
 				root.setN1(new Node(index, root.getItem()+1));
@@ -178,7 +189,9 @@ public class BranchNBound {
 			}
 			
 			f.remove(Integer.toString(map.get(root.getItem()).getNumber()));
-			n1.add(root.getNumber().toString());
+			n1.add(root.getItem().toString());
+			if(mapItem.get(root.getItem()) == null)
+				mapItem.put(root.getItem(), root);
 			
 			w = w - map.get(root.getItem()).getWeight(); //pb a 4
 			z = z + map.get(root.getItem()).getValue();
@@ -205,12 +218,13 @@ public class BranchNBound {
 		//l = max j parmis N1 et on remonte au noeud xl = 0
 		
 		int l = maxOfList(n1);
-		
-
-		
+				
 		if(visited.contains(l)){
-			System.out.println("la recurssion a fini. Le mode Hero !!!!!!! ^_^");
+			System.out.println("la recurssion a fini. Le mode Hero !!!!!!! ^_^");	
+			System.out.println("Noeud: "+root.getNumber()+" Objet: "+root.getItem()+" Z: "+root.getZ()+" W: "+root.getW());
+			
 			return null;
+			//depthFirstRec(root);
 		}else{
 			System.out.println("on a visté "+l);
 			visited.add(l);
@@ -222,15 +236,20 @@ public class BranchNBound {
 		Node tmp = mapNode.get(l);
 		freeNodes(tmp.getItem(), root.getItem());
 		
-		tmp.setN0(new Node(index, tmp.getItem()+1)); //penser au test et backtracker au pire
+		tmp.setN0(new Node(index, tmp.getItem())); //penser au test et backtracker au pire
 		index++;
 		
-		f.remove(Integer.toString(map.get(tmp.getItem()).getNumber()));
+		//f.remove(Integer.toString(map.get(tmp.getItem()).getNumber()));
+		
+		u = z;
+		
+		w = tmp.getW();
+		z = tmp.getZ();
 		
 		tmp.getN0().setW(w);
 		tmp.getN0().setZ(z);
 		
-		//depthFirstRec(tmp);
+		//depthFirstRec(tmp.getN0());
 		
 		return tmp.getN0();
 	}
@@ -241,18 +260,16 @@ public class BranchNBound {
 		
 		for(int k = i; k<j; k++){
 			Item tmp = map.get(k);
-			if(n1.contains(Integer.toString(tmp.getNumber())))
+			if(n1.contains(Integer.toString(tmp.getNumber()))){
 				n1.remove(Integer.toString(tmp.getNumber()));
-			else if(n0.contains(Integer.toString(tmp.getNumber())))
+				mapItem.remove(tmp.getNumber());
+			}else if(n0.contains(Integer.toString(tmp.getNumber())))
 				n0.remove(Integer.toString(tmp.getNumber()));
 			
-			
-			f.add(Integer.toString(map.get(k).getNumber()));
+			String number = Integer.toString(map.get(k).getNumber());
+			f.add(number);
 			
 			Node node = mapNode.get(k);
-			
-			z = z - map.get(k).getValue();
-			w = w + node.getW();			
 		}
 	}
 	
