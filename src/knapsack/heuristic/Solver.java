@@ -69,6 +69,11 @@ public class Solver {
 		return result;
 	}
 
+	
+	public ArrayList<Item> getItems(){
+		return items;
+	}
+	
 	public Double getLb() {
 		return lb;
 	}

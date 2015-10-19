@@ -1,6 +1,6 @@
 package knapsack.heuristic;
 
-public class Item {
+public class Item  implements Comparable<Item>{
 	
 	private Integer number;
 	private Double weight;
@@ -12,8 +12,28 @@ public class Item {
 		number = n;
 		weight = w;
 		value  = v;
-		ratio = (v/w);
+		ratio = v/w;
 	}
+	
+	
+	public int compareTo(Item i) {
+		
+		double compareQuantity = i.getRatio(); 
+		
+		
+		
+		double result =  this.ratio - compareQuantity;
+		
+		if(result >= 0.0)
+			return 1;
+		else
+			return 0;
+	}	
+	
+	
+	
+	
+	
 	
 	
 	public int getNumber() {
@@ -46,4 +66,8 @@ public class Item {
 	public void setRatio(Double ratio) {
 		this.ratio = ratio;
 	}
+	
+	
+	
+	
 }

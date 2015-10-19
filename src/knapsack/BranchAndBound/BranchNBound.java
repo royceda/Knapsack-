@@ -20,7 +20,6 @@ public class BranchNBound {
 	private ArrayList<String> n1; //liste des indices déjà fixé à 1
 	private ArrayList<String> n0; //liste des indices déjà fixé à 0
 	private ArrayList<String> f; // liste des indices encore libres
-	private int cursor; //nb d'indice libre
 	private ArrayList<Integer> visited;//liste des noeuds traité en 0 et 1;
 	
 	private int n; //size
