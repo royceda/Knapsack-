@@ -2,7 +2,7 @@
 Solve Knapsack problem with different implementation
 
 Linux/ Mac:
-  to compile:
+  to compile:\n
       $ javac -d objs -cp lib/com.google.ortools.jar examples/com/google/ortools/constraintsolver/samples/RabbitsPheasants.java
   
   to execute with or-tools by google:
