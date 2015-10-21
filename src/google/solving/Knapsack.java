@@ -26,7 +26,7 @@ import com.google.ortools.algorithms.KnapsackSolver;
 */
 
 public class Knapsack {
-	static { System.loadLibrary("libjniortools"); }
+	static { System.loadLibrary("jniortools"); }
 	
 	private static void solve() {
 		KnapsackSolver solver = new KnapsackSolver(

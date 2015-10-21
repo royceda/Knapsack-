@@ -13,7 +13,7 @@ import com.google.ortools.linearsolver.MPVariable;
  */
 
 public class LinearProgramming {
-  static { System.loadLibrary("jniortools.so"); }
+  static { System.loadLibrary("jniortools"); }
 
   private static MPSolver createSolver (String solverType) {
     try {
