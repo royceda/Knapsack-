@@ -1,5 +1,10 @@
 package DynamicProgram;
 
+import java.util.Iterator;
+
+import knapsack.heuristic.Item;
+import knapsack.heuristic.Solver;
+
 public class DP {
 
 	private double[] p;
@@ -14,6 +19,26 @@ public class DP {
 		this.n = ni;	
 	}
 	
+	
+	public DP(Solver pb){
+		
+		int k = 0;
+		
+		n = pb.getItems().size();
+		p = new double[n];
+		we = new double[n];
+		w = pb.getWeightMax();
+		
+		
+		for(Iterator<Item> ite = pb.getItems().iterator(); ite.hasNext(); ){
+			Item tmp = ite.next();
+			
+			p[k] = tmp.getValue();
+			we[k] = tmp.getWeight();
+			k++;
+		}
+		
+	}
 	
 	private Double max(Double a, Double b){
 		if(a > b){

@@ -35,7 +35,7 @@ public class BranchAndBound2 {
 	
 	public BranchAndBound2(Solver pb){
 		this.problem = pb;
-		this.size = 7;
+		this.size = pb.getSize();
 		this.x = new boolean[size];
 		this.x1 = new boolean[size];
 		this.p = new double[size];
@@ -124,7 +124,7 @@ public class BranchAndBound2 {
 	 * Launch the Branch and Bound execution
 	 */
 	public double procedure(){	
-		size=7;
+		//size=7;
 		System.out.println("i = "+i+" z = "+z+" c = "+c);
 		//Compute UB
 		ub = z + PL(i, size, c);

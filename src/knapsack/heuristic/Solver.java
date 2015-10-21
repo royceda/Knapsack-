@@ -11,8 +11,7 @@ public class Solver {
 	private Double weightMax;
 	private Double lb;
 	
-	
-	
+
 	public Solver(){
 		items = new ArrayList<Item>();
 	}
@@ -23,6 +22,10 @@ public class Solver {
 		weightMax = w;
 	}
 	
+	
+	public int getSize(){
+		return items.size();
+	}
 	
 	
 	public void addItem(Item it){

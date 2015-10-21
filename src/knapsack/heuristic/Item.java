@@ -3,9 +3,9 @@ package knapsack.heuristic;
 public class Item  implements Comparable<Item>{
 	
 	private Integer number;
-	private Double weight;
-	private Double value;
-	private Double ratio;
+	private Double  weight;
+	private Double  value;
+	private Double  ratio;
 	
 	
 	public Item(Integer n, Double v, Double w){
@@ -18,10 +18,7 @@ public class Item  implements Comparable<Item>{
 	
 	public int compareTo(Item i) {
 		
-		double compareQuantity = i.getRatio(); 
-		
-		
-		
+		double compareQuantity = i.getRatio(); 	
 		double result =  this.ratio - compareQuantity;
 		
 		if(result >= 0.0)
@@ -29,11 +26,6 @@ public class Item  implements Comparable<Item>{
 		else
 			return 0;
 	}	
-	
-	
-	
-	
-	
 	
 	
 	public int getNumber() {
