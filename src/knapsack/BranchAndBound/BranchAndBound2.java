@@ -41,6 +41,7 @@ public class BranchAndBound2 {
 		this.p = new double[size];
 		this.w = new double[size];
 		
+		best = new Config();
 		
 		
 		int k = 0;

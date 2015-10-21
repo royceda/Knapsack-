@@ -44,6 +44,7 @@ public class testBranchAndBound {
 		bb.solve();
 		
 		System.out.println(bb.getBest().toString());	
+		
 	}
 
 }

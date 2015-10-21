@@ -26,10 +26,6 @@ public class TestDP {
 		double result = testDp.solve();
 		
 		System.out.println("result: "+result);
-		
-		
-		
-		
 
 	}
 

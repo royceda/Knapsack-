@@ -48,8 +48,7 @@ public class DP {
 				z[i][0] = p[0];
 			}
 		}
-		
-		
+			
 		//recurrence bouclée
 		for(int i=1; i<w; i++){
 			for(int r = 1; r<n ; r++){
