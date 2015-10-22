@@ -192,6 +192,8 @@ public class Window extends JFrame {
 		comboBox.addItem("Branch and Bound");
 		comboBox.addItem("Core DP ");
 		comboBox.addItem("Flow Models");
+		comboBox.addItem("Forward DP");
+		
 		
 		
 		JButton btnCompute = new JButton("Compute");
