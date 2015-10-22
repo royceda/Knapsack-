@@ -34,8 +34,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import knapsack.BranchAndBound.BranchAndBound2;
-import knapsack.BranchAndBound.BranchNBound;
+import knapsack.BranchAndBound.BranchAndBound;
+import knapsack.BranchAndBound.BranchNBoundNew;
 import knapsack.heuristic.Item;
 import knapsack.heuristic.Solver;
 import javax.swing.JScrollBar;
@@ -109,12 +109,8 @@ public class Window extends JFrame {
 		gbc_scrollPane.gridy = 1;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollPane.setRowHeaderView(scrollBar);
-		
-		final JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		scrollPane.setViewportView(lblNewLabel);
+		final JTextPane textPane = new JTextPane();
+		scrollPane.setViewportView(textPane);
 		
 		JLabel lblValues = new JLabel("Values");
 		GridBagConstraints gbc_lblValues = new GridBagConstraints();
@@ -200,14 +196,19 @@ public class Window extends JFrame {
 		btnCompute.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("cliick "+comboBox.getSelectedItem().toString());
-				lblNewLabel.setText("On calcul");
+				textPane.setText("Algo: "+comboBox.getSelectedItem().toString());
+				textPane.setText("On calcul");
+				
+				String str       = "";
+				long   startTime = 0;
+				long   endTime   = 0;
+				long   duration  = 0;
 				
 				
 				//extraction des items
-				String strN = textField_3.getText();
-				double n = Double.parseDouble(strN);
-				String strW = textField_2.getText();
+				String strN      = textField_3.getText();
+				double n         = Double.parseDouble(strN);
+				String strW      = textField_2.getText();
 				double weightMax = Double.parseDouble(strW);
 				
 				String strValues = textField.getText();
@@ -232,49 +233,66 @@ public class Window extends JFrame {
 					
 				//	System.out.println(ite.next());
 					
-					double val = Double.parseDouble(tmpV);
+					double val    = Double.parseDouble(tmpV);
 					double weight = Double.parseDouble(tmpW);
 					
 					tmpList.add(new Item(i, val, weight));
 					i++;
 				}
-				
-			
 
-				
 				Solver sol = new Solver(tmpList, weightMax);
 				
 				int index = comboBox.getSelectedIndex();
 				switch(index){
-				case(0): //greedy
-					System.out.println("0");
+				
+				case(0): //greedy	
+					str = "Greedy\n";
+				startTime = System.nanoTime();
 				sol.solve();
-				System.out.println(sol.getSolution());
+				endTime = System.nanoTime();
+				duration = (endTime - startTime)/ 1000000 ;
+				
+				str += sol.getSolution();
+				str += "\n Time to execute: "+duration +" millisecondes";
+				textPane.setText(str);
 				break;
 				
 				case(1)://dp
-					System.out.println("1");
+					
+				str = "Branch and Bound\n";
 				
+				startTime = System.nanoTime();
 				DP testDp = new DP(sol);
 				double result = testDp.solve();
+				endTime = System.nanoTime();
+				duration = (endTime - startTime)/ 1000000 ;
 				
+				str += ""+testDp.getSolution();
+				str += "result: "+result+"\n";			
+				str += "\n Time to execute: "+duration +" millisecondes";
 				
-				System.out.println("result: "+result);
-				
-				System.out.println(testDp.getSolution());
+				textPane.setText(str);
 				break;
 				
 				case(2)://b&b
-					System.out.println("2");
-				BranchAndBound2 bb = new BranchAndBound2(sol);
+					
+				str = "Branch and Bound\n";
+				startTime = System.nanoTime();
+				BranchAndBound bb = new BranchAndBound(sol);
 				bb.solve();
+				endTime = System.nanoTime();
+				duration = (endTime - startTime)/ 1000000 ; 
+				
+				str += bb.getResponse();
 				if(bb.getBest() != null){
-					System.out.println(bb.getBest().toString());	
-					lblNewLabel.setText(bb.getBest().toString());
+					str += "\n"+bb.getBest().toString();	
 				}
+				
+				str += "\n Time to execute: "+duration +" millisecondes";
+				textPane.setText(str);
 				break;
 				
-				case(3):
+				case(3)://core
 					System.out.println("3");
 				break;
 				

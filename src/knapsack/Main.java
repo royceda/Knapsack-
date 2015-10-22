@@ -3,7 +3,7 @@ package knapsack;
 
 import java.util.ArrayList;
 
-import knapsack.BranchAndBound.BranchNBound;
+import knapsack.BranchAndBound.BranchNBoundNew;
 import knapsack.frame.Window;
 import knapsack.heuristic.Item;
 import knapsack.heuristic.Solver;
@@ -58,7 +58,7 @@ public class Main {
 	sol = new Solver(tmpList, 50.0);
 	sol.solve();
 	
-	BranchNBound B = new BranchNBound(tmpList, 50.0);
+	BranchNBoundNew B = new BranchNBoundNew(tmpList, 50.0);
 	B.procedure();
 	
 	

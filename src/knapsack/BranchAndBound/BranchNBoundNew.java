@@ -7,7 +7,7 @@ import java.util.Iterator;
 import knapsack.heuristic.Item;
 import knapsack.heuristic.Solver;
 
-public class BranchNBound {
+public class BranchNBoundNew {
 	
 	private Solver problem;
 	private Node   root;
@@ -33,7 +33,7 @@ public class BranchNBound {
 	
 	
 	
-	public BranchNBound(ArrayList<Item> list, Double weight){
+	public BranchNBoundNew(ArrayList<Item> list, Double weight){
 		problem = new Solver(list, weight);
 		
 		

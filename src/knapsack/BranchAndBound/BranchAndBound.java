@@ -7,7 +7,7 @@ import java.util.Iterator;
 import knapsack.heuristic.Item;
 import knapsack.heuristic.Solver;
 
-public class BranchAndBound2 {
+public class BranchAndBound {
 
 	private Solver problem;
 	private int size;
@@ -30,10 +30,12 @@ public class BranchAndBound2 {
 	private Config best; //garde la meileur conf
 	
 	
-	public BranchAndBound2(){}
+	private String response ;
+	
+	public BranchAndBound(){}
 	
 	
-	public BranchAndBound2(Solver pb){
+	public BranchAndBound(Solver pb){
 		this.problem = pb;
 		this.size = pb.getSize();
 		this.x = new boolean[size];
@@ -45,6 +47,7 @@ public class BranchAndBound2 {
 		
 		best = new Config();
 		
+		response = "";
 		
 		int k = 0;
 		for(Iterator<Item> ite = pb.getItems().iterator(); ite.hasNext(); ){
@@ -116,7 +119,7 @@ public class BranchAndBound2 {
 		//initialization
 		init();
 		size = n+1;
-		System.out.println("Begin");
+		response += "Begin\n";
 		return procedure();
 	}
 	
@@ -128,7 +131,7 @@ public class BranchAndBound2 {
 	 */
 	public double procedure(){	
 		size=n+1;
-		System.out.println("i = "+i+" z = "+z+" c = "+c);
+		response += "i = "+i+" z = "+z+" c = "+c+"\n";
 		//Compute UB
 		ub = z + PL(i, size, c);
 		if(ub <= inc){
@@ -148,21 +151,21 @@ public class BranchAndBound2 {
 			z = z + p[i];
 			c = c - w[i];
 			i++;
-			System.out.println("Plunge: i = "+i+" z = "+z+" c = "+c);
+			response += "Plunge: i = "+i+" z = "+z+" c = "+c+"\n";
 		}
-		System.out.println("Plunge: i = "+i+" z = "+z+" c = "+c);
+		response += "Plunge: i = "+i+" z = "+z+" c = "+c+"\n";
 		return fixationZero();
 	}
 
 	
 	public double fixationZero(){
 		if(i < n+1){
-			System.out.println(i+" fixé à 0: i = "+i+" z = "+z+" c = "+c);
+			response += ""+i+" fixé à 0: i = "+i+" z = "+z+" c = "+c+"\n";
 			x[i] = false;
 			i++;
 			return procedure();
 		}
-		System.out.println("i = "+i+" z = "+z+" c = "+c);
+		response += "i = "+i+" z = "+z+" c = "+c+"\n";
 		return updateLB();
 	}
 	
@@ -171,14 +174,14 @@ public class BranchAndBound2 {
 			lb = z;
 			setBest(new Config(z, c, x));
 			x1 = x;
-			System.out.println("Une bonne config: i = "+i+" z = "+z+" c = "+c);
+			response += "Une bonne config: i = "+i+" z = "+z+" c = "+c+"\n";
 		}
 		return backtrack();
 	}
 	
 	
 	public double backtrack(){
-		System.out.println("BackTrack");
+		response += "BackTrack:\n";
 		if(i == n){
 			x[n] = false;
 			z = z - p[n];
@@ -192,7 +195,7 @@ public class BranchAndBound2 {
 		while(x[i] == false){
 			i--;
 			if(i == -1){
-				System.out.println("FIN");
+				response += "FIN\n";
 				return z;
 			}
 		}
@@ -201,17 +204,11 @@ public class BranchAndBound2 {
 		z = z - p[i];
 		c = c + w[i];
 		i++;
-		System.out.println("à "+i+"\n");
+		response += "à "+i+"\n";
 		return procedure();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+
 	//getters and setters
 	public Solver getProblem() {
 		return problem;
@@ -231,5 +228,8 @@ public class BranchAndBound2 {
 	}
 	
 	
+	public String  getResponse(){
+		return response;
+	}
 	
 }

@@ -36,7 +36,7 @@ public class testBranchAndBound {
 		Collections.sort(tmpList);
 		
 		
-		BranchAndBound2 bb = new BranchAndBound2(sol);
+		BranchAndBound bb = new BranchAndBound(sol);
 		
 		System.out.println("INIT: OK");
 		//System.out.println(tmpList.toString());
