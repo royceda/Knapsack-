@@ -254,10 +254,10 @@ public class Window extends JFrame {
 					System.out.println("2");
 				BranchAndBound2 bb = new BranchAndBound2(sol);
 				bb.solve();
-				/*if(bb.getBest() != null){
+				if(bb.getBest() != null){
 					System.out.println(bb.getBest().toString());	
 					lblNewLabel.setText(bb.getBest().toString());
-				}*/
+				}
 				break;
 				
 				case(3):

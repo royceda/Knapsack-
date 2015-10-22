@@ -41,6 +41,8 @@ public class BranchAndBound2 {
 		this.p = new double[size];
 		this.w = new double[size];
 		
+		this.c = pb.getWeightMax();
+		
 		best = new Config();
 		
 		
@@ -98,11 +100,11 @@ public class BranchAndBound2 {
 		problem.solve();
 		lb = problem.getLb();
 		items = sort();
-		c = 50.0;
+		c = problem.getWeightMax();
 		z = 0;
 		i = 0;
 		
-		n = size - 1;
+		n = size-1;
 		for(int k = 0; k<size; size++){
 			x[k] = false;
 			x1[k] = false;
@@ -113,6 +115,7 @@ public class BranchAndBound2 {
 	public double solve(){
 		//initialization
 		init();
+		size = n+1;
 		System.out.println("Begin");
 		return procedure();
 	}
@@ -124,7 +127,7 @@ public class BranchAndBound2 {
 	 * Launch the Branch and Bound execution
 	 */
 	public double procedure(){	
-		//size=7;
+		size=n+1;
 		System.out.println("i = "+i+" z = "+z+" c = "+c);
 		//Compute UB
 		ub = z + PL(i, size, c);
@@ -210,7 +213,6 @@ public class BranchAndBound2 {
 	
 	
 	//getters and setters
-	
 	public Solver getProblem() {
 		return problem;
 	}

@@ -7,7 +7,11 @@ public class Config {
 	private boolean[] x;
 	
 	
-	public Config(){}
+	public Config(){
+		z = 0.0;
+		c = 0.0;
+		x = null;
+	}
 	
 	
 	public Config(double z, double c, boolean[] x){
@@ -24,14 +28,15 @@ public class Config {
 		str += "C = "+c+"\n";
 		str += "On prend: \n";
 		
-		for(int i = 0; i < x.length ; i++){
-			if(x[i] == true){
-				int l = i + 1;
-				str += ","+l;
-			}else
-				str += ",0";
+		if(x != null){
+			for(int i = 0; i < x.length ; i++){
+				if(x[i] == true){
+					int l = i + 1;
+					str += ","+l;
+				}else
+					str += ",0";
+			}
 		}
-		
 	
 		return str;
 	}
