@@ -169,15 +169,18 @@ public class CoreDP {
 				for(Iterator<State> ite = list.iterator(); ite.hasNext();){
 					State tmp = ite.next();
 					list1.add(new State(tmp.getA(), tmp.getB()+1, tmp.getW(), tmp.getP(), tmp));
+					//solution[b+1] = 0;
 					double w2 = tmp.getW() - sumW(tmp.getA());
 					
 					if (w2 + w[tmp.getB()+1] <= W){					
 						list1.add(new State(tmp.getA(), tmp.getB()+1, w2 + w[tmp.getB()+1], tmp.getP() + p[tmp.getB()+1], tmp));
+						//solution[b+1] = 1;
 					}	
 				}
 				
 				lb = getLB(list1);
 				eliminate(list1, lb);
+				//penser a modifier solution durant eliminate
 				list.clear();
 				list.addAll(list1);
 				b++;
@@ -186,11 +189,14 @@ public class CoreDP {
 				for(Iterator<State> ite = list.iterator(); ite.hasNext();){
 					State tmp = ite.next();
 					list1.add(new State(tmp.getA()-1, tmp.getB(), tmp.getW(), tmp.getP(), tmp));
+					//solution[a-1] = 1;
 					list1.add(new State(a, b+1, sumW(tmp.getA()) - w[tmp.getA()-1], sumP(tmp.getA()) - p[tmp.getA()-1], tmp));
+					//solution[a-1] = 0;
 				}
 				
 				lb = getLB(list1);
 				eliminate(list1, lb);
+				//penser a modifier solution durant eliminate
 				list.clear();
 				list.addAll(list1);
 				a--;	

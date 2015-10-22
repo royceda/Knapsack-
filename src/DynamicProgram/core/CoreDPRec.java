@@ -40,6 +40,22 @@ public class CoreDPRec extends DP {
         return 0;
 	}
 	
+	public double sumW(int n){
+	    int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += we[i];
+        }
+        return sum;
+	}
+	
+
+	public double sumP(int n){
+		 int sum = 0;
+		 for (int i = 0; i < n; i++) {
+			 sum += p[i];
+		 }
+		 return sum;
+	}
 	
 	
 	@Override
@@ -47,17 +63,18 @@ public class CoreDPRec extends DP {
 		
 		//init
 		int c = getCriticIndex();
-		//int a = c;
-		//int b = c-1;
+		for(int d = 0; d>sumW(c); d++)
+			V[c][c-1][d] = sumP(c);  
+		
 		
 		double[] variable = new double[4];
 		
-		for(int a = 0; a<c; a++)
-			for(int b = c-1; b<n; b++ )
+		for(int a = c; a < n-1; a++)
+			for(int b = c-1; b > 0; b-- )
 				for(int d = 0; d < 2*w; d++){
 					
 					variable[0] = V[a+1][b][d];
-					variable[1] =  V[a+1][b][(int) (d+we[a])] - p[a];
+					variable[1] = V[a+1][b][(int) (d+we[a])] - p[a];
 					
 					
 					if(d-we[b] < 0)
@@ -83,13 +100,21 @@ public class CoreDPRec extends DP {
 					else if(V[a][b][d] == V[a][b-1][(int) (d-we[b])])
 						solution[b] = 1;
 				}
-		//tester pour extraire une soluce
-		
-		
-		
-		return 0.0;
+		return max(V);
 	}
 	
+	
+	public double max(double[][][] V){
+		double max = 0.0;
+		
+		for(int i = 0; i < n; i++ )
+			for(int j = 0; j < n; j++ )
+				for(int k = 0; k < 2*w; k++ ){
+					if(V[i][j][k] >= max)
+						max = V[i][j][k];
+				}
+		return max;	
+	}
 	
 	public String getSolution(){
 		String str = "";

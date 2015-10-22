@@ -299,7 +299,7 @@ public class Window extends JFrame {
 				endTime = System.nanoTime();
 				duration = (endTime - startTime)/ 1000000 ;
 				str += ""+testDpc.getSolution();
-				//str += "result: "+result1+"\n";			
+				str += "result: "+result1+"\n";			
 				str += "\n Time to execute: "+duration +" millisecondes";
 				textPane.setText(str);
 				break;
