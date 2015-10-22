@@ -9,14 +9,19 @@ public class DP {
 
 	private double[] p;
 	private double[] we;
-	private double w;
-	private int n;
-	 
+	private double   w;
+	private int      n;
+	
+	
+	private double[][] z;
+	private int lambda;
+	private double max;
+	
 	public DP(double[] pi, double[] wei, double wi, int ni){
-		this.p = pi;
+		this.p  = pi;
 		this.we = wei;
-		this.w = wi;
-		this.n = ni;	
+		this.w  = wi;
+		this.n  = ni;	
 	}
 	
 	
@@ -24,23 +29,22 @@ public class DP {
 		
 		int k = 0;
 		
-		n = pb.getItems().size();
-		p = new double[n];
+		n  = pb.getItems().size();
+		p  = new double[n];
 		we = new double[n];
-		w = pb.getWeightMax();
+		w  = pb.getWeightMax();
 		
 		
 		for(Iterator<Item> ite = pb.getItems().iterator(); ite.hasNext(); ){
-			Item tmp = ite.next();
-			
-			p[k] = tmp.getValue();
+			Item tmp = ite.next();		
+			p[k]  = tmp.getValue();
 			we[k] = tmp.getWeight();
 			k++;
 		}
 		
 	}
 	
-	private Double max(Double a, Double b){
+	private double max(Double a, Double b){
 		if(a > b){
 			return a;
 		}else{
@@ -48,9 +52,10 @@ public class DP {
 		}
 	}
 	
+	
 	private double max(double[][] z){
 		double a = 0;
-		for(int i = 0; i<w; i++){
+		for(int i = 0; i<w+1; i++){
 			for(int j = 0; j<n; j++){
 				if(a <= z[i][j]){
 					a = z[i][j];
@@ -60,11 +65,12 @@ public class DP {
 		return a;
 	}
 	
+	
 	public double solve(){
 		
 		//initialisation			
-		int ligne = (int) w; 
-		double[][] z = new double[ligne][n];
+		int ligne = (int) w+1; 
+		z = new double[ligne][n];
 		
 		
 		//premiere colonne
@@ -75,7 +81,7 @@ public class DP {
 		}
 			
 		//recurrence bouclée
-		for(int i=1; i<w; i++){
+		for(int i=1; i<ligne; i++){
 			for(int r = 1; r<n ; r++){
 				if(i-we[r] >= 0){
 					int l = (int) (i-we[r]);
@@ -96,7 +102,38 @@ public class DP {
 		}
 		
 		//choix de la solution	
-		return max(z);
+		lambda = ligne-1;
+		
+		max =  max(z);
+		return max;
 	}
+	
+	
+	
+	// a debug
+	public String getSolution(){
+		
+		String response = "Solution DP: \n Z="+max+"\nX: ";
+		
+		
+		
+		if(p[0] > z[lambda][0]){
+			response += " 1";			
+		}else
+			response +=" 0";
+		
+		for(int k=1; k<n; k++){	
+			if(z[(int) (lambda-we[k])][k-1] + p[k] > z[lambda][k-1]){
+				int tmp = k+1;
+				response += ","+tmp+" ";			
+			}else
+				response += ",0 ";		
+		}
+		
+		
+		return response;
+	}
+	
+	
 }
 

@@ -255,9 +255,10 @@ public class Window extends JFrame {
 				DP testDp = new DP(sol);
 				double result = testDp.solve();
 				
+				
 				System.out.println("result: "+result);
 				
-				
+				System.out.println(testDp.getSolution());
 				break;
 				
 				case(2)://b&b
