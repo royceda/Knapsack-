@@ -14,7 +14,14 @@ public class CoreDP {
 	
 	public CoreDP(){
 		list = new ArrayList<State>();
-		
+	}
+	
+	public CoreDP(double[] p, double[] w, double W, int n){
+		this.p = p;
+		this.w = w;
+		this.W = W;
+		this.n = n;
+		this.list = new ArrayList<State>();
 	}
 	
 	
@@ -23,7 +30,15 @@ public class CoreDP {
 	 * @return
 	 */
 	public int getCriticIndex(){
-		return 0;
+		double cap = W;
+        for (int i = 0; i < n; i++) {
+            if (w[i] >= cap) {
+                return i;
+            } else {
+                cap -= w[i];
+            }
+        }
+        return 0;
 	}
 	
 	public double sumW(int n){
@@ -44,13 +59,25 @@ public class CoreDP {
 	
 	
 	public double getLB(ArrayList<State> list){
+		
+		//max {p / (a,b,w,p) dans list et w <= W} 
 	    double lb = -1;
         try{ //!!!! JRE1.8
-        	/*lb = list.stream()
+        	/*lb = list.stream() 
         			.filter(s -> s.getW() <= W)
         			.mapToInt(s -> s.getP())
         			.max()
         			.getAsInt();*/
+        	double pmax = 0;
+        	for(Iterator<State> ite = list.iterator(); ite.hasNext(); ){
+        		State tmp = ite.next();
+        		
+        		if(tmp.getP() >= pmax){
+        			pmax = tmp.getP();
+        		}
+        	}
+        	
+        	lb = pmax;
         } catch(Exception e){}
         
         return lb;
@@ -106,20 +133,14 @@ public class CoreDP {
                 ite.remove();
             } else {
             	for(Iterator<State> ite1 = list.iterator(); ite1.hasNext();){
-            		State tmp1= ite.next();	
+            		State tmp1 = ite1.next();	
             		if (stateIsDominated(tmp, tmp1)) {
             			ite1.remove();
             			break;
             		}
             	}
             }
-        }
-		
-		
-		
-		
-		
-		
+        }	
 	}
 	
 	
@@ -142,7 +163,7 @@ public class CoreDP {
 		ArrayList<State> list1 = new ArrayList<State>();
 		
 		//Recursion
-		while(a > 0 || b < n){
+		while(a > 0 || b < n-1){
 			if(b < n){
 				
 				for(Iterator<State> ite = list.iterator(); ite.hasNext();){
@@ -180,5 +201,27 @@ public class CoreDP {
 		return lb;
 	}
 	
-	
+	   public String getSolution() {
+		   String solution = "";
+		   int a = -1;
+		   int b = -1;
+	          for(Iterator<State> ite = list.iterator(); ite.hasNext();){
+	        	State tmp = ite.next();
+	        	
+	        	a = tmp.getA();
+	        	b = tmp.getB();
+	        	
+	        	if(p[a] == tmp.getP() && w[a] == tmp.getW())
+	        		solution += ", "+(a+1);
+	        	else
+	        		solution += ", "+0;
+	        	if(p[b] != tmp.getP() && w[b] != tmp.getW())
+	        		solution += ", "+(b+1);
+	        	else
+	        		solution += ", "+0;
+	        	
+	          }
+	       
+		   return solution;    
+	}
 }

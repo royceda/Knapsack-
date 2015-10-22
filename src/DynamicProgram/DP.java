@@ -7,10 +7,10 @@ import knapsack.heuristic.Solver;
 
 public class DP {
 
-	private double[] p;
-	private double[] we;
-	private double   w;
-	private int      n;
+	protected double[] p;
+	protected double[] we;
+	protected double   w;
+	protected int      n;
 	
 	
 	private double[][] z;
@@ -44,7 +44,7 @@ public class DP {
 		
 	}
 	
-	private double max(Double a, Double b){
+	protected double max(Double a, Double b){
 		if(a > b){
 			return a;
 		}else{

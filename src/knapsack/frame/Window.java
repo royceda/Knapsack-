@@ -25,6 +25,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 
 import DynamicProgram.DP;
+import DynamicProgram.core.CoreDP;
+import DynamicProgram.core.CoreDPRec;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -38,6 +40,7 @@ import knapsack.BranchAndBound.BranchAndBound;
 import knapsack.BranchAndBound.BranchNBoundNew;
 import knapsack.heuristic.Item;
 import knapsack.heuristic.Solver;
+
 import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
 
@@ -187,8 +190,9 @@ public class Window extends JFrame {
 		comboBox.addItem("DP");
 		comboBox.addItem("Branch and Bound");
 		comboBox.addItem("Core DP ");
-		comboBox.addItem("Flow Models");
 		comboBox.addItem("Forward DP");
+		comboBox.addItem("Flow Models");
+	
 		
 		
 		
@@ -257,47 +261,55 @@ public class Window extends JFrame {
 				textPane.setText(str);
 				break;
 				
-				case(1)://dp
-					
+				case(1)://dp				
 				str = "Branch and Bound\n";
-				
 				startTime = System.nanoTime();
 				DP testDp = new DP(sol);
 				double result = testDp.solve();
 				endTime = System.nanoTime();
 				duration = (endTime - startTime)/ 1000000 ;
-				
 				str += ""+testDp.getSolution();
 				str += "result: "+result+"\n";			
 				str += "\n Time to execute: "+duration +" millisecondes";
-				
 				textPane.setText(str);
 				break;
 				
-				case(2)://b&b
-					
+				
+				case(2)://b&b				
 				str = "Branch and Bound\n";
 				startTime = System.nanoTime();
 				BranchAndBound bb = new BranchAndBound(sol);
 				bb.solve();
 				endTime = System.nanoTime();
-				duration = (endTime - startTime)/ 1000000 ; 
-				
+				duration = (endTime - startTime)/ 1000000 ; 			
 				str += bb.getResponse();
 				if(bb.getBest() != null){
 					str += "\n"+bb.getBest().toString();	
 				}
-				
 				str += "\n Time to execute: "+duration +" millisecondes";
 				textPane.setText(str);
 				break;
 				
+				
 				case(3)://core
-					System.out.println("3");
+					str = "Branch and Bound\n";
+				startTime = System.nanoTime();
+				CoreDPRec testDpc = new CoreDPRec(sol);
+				double result1 = testDpc.solve();
+				endTime = System.nanoTime();
+				duration = (endTime - startTime)/ 1000000 ;
+				str += ""+testDpc.getSolution();
+				//str += "result: "+result1+"\n";			
+				str += "\n Time to execute: "+duration +" millisecondes";
+				textPane.setText(str);
 				break;
 				
-				case(4):
-					System.out.println("3");
+				case(4)://forward
+					textPane.setText("not implemented :(");
+				break;
+				
+				case(5)://FLOW
+					textPane.setText("not implemented :(");
 				break;
 				
 				default:
@@ -454,21 +466,6 @@ public class Window extends JFrame {
 				try {
 					Window frame = new Window();
 					frame.setVisible(true);
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 					
 				} catch (Exception e) {
 					e.printStackTrace();

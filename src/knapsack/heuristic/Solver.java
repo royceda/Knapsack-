@@ -87,7 +87,7 @@ public class Solver {
 		
 		for(Iterator<Item> ite = result.iterator(); ite.hasNext();){
 			Item tmp = ite.next();
-			response += Integer.toString(tmp.getNumber())+",";
+			response += Integer.toString(tmp.getNumber())+", ";
 		}
 		return response;
 	}
