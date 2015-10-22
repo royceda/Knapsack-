@@ -97,6 +97,8 @@ public class Window extends JFrame {
 		contentPane.add(textField_3, gbc_textField_3);
 		textField_3.setColumns(10);
 		
+		textField_3.setText("7");
+		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 12;
@@ -130,6 +132,9 @@ public class Window extends JFrame {
 		contentPane.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
+		textField.setText("70, 20, 39, 35, 7, 5, 9");
+		
+		
 		JLabel lblWeight = new JLabel("Weights");
 		GridBagConstraints gbc_lblWeight = new GridBagConstraints();
 		gbc_lblWeight.insets = new Insets(0, 0, 5, 5);
@@ -146,12 +151,15 @@ public class Window extends JFrame {
 		contentPane.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
 		
+		textField_1.setText("31, 10, 20, 18, 4, 3, 6");
+		
 		JLabel lblWeightMax = new JLabel("Weight Max");
 		GridBagConstraints gbc_lblWeightMax = new GridBagConstraints();
 		gbc_lblWeightMax.insets = new Insets(0, 0, 5, 5);
 		gbc_lblWeightMax.gridx = 0;
 		gbc_lblWeightMax.gridy = 4;
 		contentPane.add(lblWeightMax, gbc_lblWeightMax);
+		
 		
 		textField_2 = new JTextField();
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -161,6 +169,8 @@ public class Window extends JFrame {
 		gbc_textField_2.gridy = 4;
 		contentPane.add(textField_2, gbc_textField_2);
 		textField_2.setColumns(10);
+		
+		textField_2.setText("50");
 		
 		JLabel lblMethod = new JLabel("Method");
 		GridBagConstraints gbc_lblMethod = new GridBagConstraints();
