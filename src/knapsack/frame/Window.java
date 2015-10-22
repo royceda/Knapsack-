@@ -249,6 +249,7 @@ public class Window extends JFrame {
 				case(0): //greedy
 					System.out.println("0");
 				sol.solve();
+				System.out.println(sol.getSolution());
 				break;
 				
 				case(1)://dp

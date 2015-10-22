@@ -3,6 +3,7 @@ package knapsack.heuristic;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 public class Solver {
@@ -11,15 +12,22 @@ public class Solver {
 	private Double weightMax;
 	private Double lb;
 	
+	private ArrayList<Item> result;
+	private double max;
 
 	public Solver(){
+		result = new ArrayList<Item>();
 		items = new ArrayList<Item>();
+		max = 0.0;
 	}
 	
 	public Solver(List<Item> list, Double w){
 		items = new ArrayList<Item>();
 		items.addAll(list);
 		weightMax = w;
+		
+		result = new ArrayList<Item>();
+		max = 0.0;
 	}
 	
 	
@@ -37,7 +45,7 @@ public class Solver {
 	}
 	
 	
-	public ArrayList<Item> solve(){
+	public double solve(){
 		
 		Collections.sort(items, new Comparator<Item>() {	
 			@Override
@@ -52,11 +60,11 @@ public class Solver {
 			}	
 		});
 		
-		Double sum = 0.0;
-		ArrayList<Item> result = new ArrayList<Item>();
+		double sum = 0.0;
+		//ArrayList<Item> result = new ArrayList<Item>();
 		
 		for (Item p : items) {
-			System.out.println(p.getNumber() + "\t" + p.getRatio());
+			//System.out.println(p.getNumber() + "\t" + p.getRatio());
 			if(sum + p.getWeight() <= this.weightMax){
 				result.add(p);
 				sum += p.getWeight();
@@ -64,14 +72,26 @@ public class Solver {
 		}
 		
 		setLb(sum);
-		System.out.println("Total: "+sum);
-		for(Item p : result){
+		//System.out.println("Total: "+sum);
+		/*for(Item p : result){
 			System.out.println(p.getNumber() + "\t" + p.getWeight());			
-		}
+		}*/
 		
-		return result;
+		max = sum;
+		return sum;
 	}
 
+	
+	public String getSolution(){
+		String response = "Solution: z = "+ max+"\n";
+		
+		for(Iterator<Item> ite = result.iterator(); ite.hasNext();){
+			Item tmp = ite.next();
+			response += Integer.toString(tmp.getNumber())+",";
+		}
+		return response;
+	}
+	
 	
 	public ArrayList<Item> getItems(){
 		return items;
