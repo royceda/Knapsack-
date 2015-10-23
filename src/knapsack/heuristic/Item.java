@@ -15,6 +15,12 @@ public class Item  implements Comparable<Item>{
 		ratio = v/w;
 	}
 	
+	public Item(Double v, Double w){
+		number = 0;
+		weight = w;
+		value  = v;
+		ratio = v/w;
+	}
 	
 	public int compareTo(Item i) {
 		

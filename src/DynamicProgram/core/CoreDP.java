@@ -5,12 +5,12 @@ import java.util.Iterator;
 
 public class CoreDP {
 
-	private ArrayList<State> list;
-	private double[] w;
-	private double[] p;
+	protected ArrayList<State> list;
+	protected double[] w;
+	protected double[] p;
 	
-	private double W;
-	private int n;
+	protected double W;
+	protected int n;
 	
 	public CoreDP(){
 		list = new ArrayList<State>();
