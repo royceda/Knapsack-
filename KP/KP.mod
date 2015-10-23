@@ -11,6 +11,7 @@ int profits[1..n] = ...;
 int weights[1..n] = ...;
 
 dvar int+ x[1..n] in  0..1;
+dvar float+ z;
 
 maximize
   sum(i in 1..n) x[i]*profits[i];
@@ -18,3 +19,7 @@ maximize
   subject to{
   	sum(i in 1..n) weights[i]*x[i] <= capacity;
   }
+  
+ 
+ //z = sum(i in 1..n) x[i]*profits[i];
+  

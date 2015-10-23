@@ -3,7 +3,10 @@ package DynamicProgram.core;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class CoreDP {
+import knapsack.heuristic.Solver;
+import DynamicProgram.DP;
+
+public class CoreDP extends DP{
 
 	protected ArrayList<State> list;
 	protected double[] w;
@@ -12,9 +15,9 @@ public class CoreDP {
 	protected double W;
 	protected int n;
 	
-	public CoreDP(){
+	/*public CoreDP(){
 		list = new ArrayList<State>();
-	}
+	}*/
 	
 	public CoreDP(double[] p, double[] w, double W, int n){
 		this.p = p;
@@ -25,6 +28,12 @@ public class CoreDP {
 	}
 	
 	
+	public CoreDP(Solver sol) {
+		super(sol);
+		this.list = new ArrayList<State>();
+	}
+
+
 	/**
 	 * get the c
 	 * @return

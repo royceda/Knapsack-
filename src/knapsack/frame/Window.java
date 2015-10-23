@@ -115,6 +115,12 @@ public class Window extends JFrame {
 		final JTextPane textPane = new JTextPane();
 		scrollPane.setViewportView(textPane);
 		
+		String notice = "Bienvenue\n"
+				+ "pour générer des instances aléatoirement, choisissez min et max pour min <= n <= max. Vous pourrez toutefois modifier des valeurs après une génération\n"
+				+"";
+		textPane.setText(notice);
+		
+		
 		JLabel lblValues = new JLabel("Values");
 		GridBagConstraints gbc_lblValues = new GridBagConstraints();
 		gbc_lblValues.insets = new Insets(0, 0, 5, 5);
@@ -201,7 +207,7 @@ public class Window extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				textPane.setText("Algo: "+comboBox.getSelectedItem().toString());
-				textPane.setText("On calcul");
+				textPane.setText("OUT !!!!!! :(");
 				
 				String str       = "";
 				long   startTime = 0;
@@ -466,6 +472,8 @@ public class Window extends JFrame {
 				try {
 					Window frame = new Window();
 					frame.setVisible(true);
+					
+				
 					
 				} catch (Exception e) {
 					e.printStackTrace();

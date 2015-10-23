@@ -15,7 +15,7 @@ public class testForward {
 		ForwardDP test = new ForwardDP(p, w, weight, n);
 		System.out.println("OK");
 		
-		String lb = test.solve();
+		double lb = test.solve();
 		System.out.println("lb: "+lb);
 		
 	}

@@ -17,6 +17,8 @@ public class DP {
 	private int lambda;
 	private double max;
 	
+	public DP(){}
+	
 	public DP(double[] pi, double[] wei, double wi, int ni){
 		this.p  = pi;
 		this.we = wei;

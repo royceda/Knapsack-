@@ -75,7 +75,7 @@ public class BranchAndBound {
 	}
 	
 	/**
-	 * Compute for the calculus of Upper Bound
+	 * Compute for the calculus of Upper Bound (A ameliorer)
 	 * @param i
 	 * @param n
 	 * @param c

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import DynamicProgram.core.CoreDP;
 import DynamicProgram.core.State;
 import knapsack.heuristic.Item;
+import knapsack.heuristic.Solver;
 
 public class ForwardDP extends CoreDP {
 
@@ -17,7 +18,14 @@ public class ForwardDP extends CoreDP {
 	}
 
 	
-	public String solve(){
+	public ForwardDP(Solver sol) {
+		super(sol);
+		list = new ArrayList<State>();
+	}
+
+
+	
+	public double solve(){
 		//init
 		list.add(new State(0,0,0.0,0.0,null));
 		double lb = 0.0;
@@ -42,7 +50,7 @@ public class ForwardDP extends CoreDP {
 		
 		
 		
-		return Integer.toString(list.size());
+		return list.size();
 	}
 }
 
